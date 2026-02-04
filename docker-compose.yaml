@@ -1,0 +1,40 @@
+services:
+  nestjs-app:
+    build: .
+    ports:
+      - '3000:3000'
+    depends_on:
+      - database
+    environment:
+      DATABASE_URL: postgres://oluwatomisin:testdb@database:5432/projectmanagement
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: oluwatomisin
+
+  database:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: projectmanagement
+      POSTGRES_USER: oluwatomisin
+      POSTGRES_PASSWORD: oluwatomisin
+    ports:
+      - '5439:5432'
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  Redis:
+    image: redis:7.4-alpine
+    restart: always
+    ports:
+      - '6379:6379'
+    command: redis-server --save 20 1 --loglevel warning --requirepass oluwatomisin
+    volumes:
+      - cache:/data
+
+volumes:
+  db_data:
+  cache:
+
+networks:
+  default:
+    driver: bridge

@@ -1,0 +1,82 @@
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "cjs"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum TaskStatus {
+  PENDING
+  INPROGRESS
+  COMPLETED
+}
+
+enum Roles {
+  MEMBER
+  OWNER
+  VIEWER
+}
+
+model User {
+  id              String            @id @default(uuid()) @db.Uuid
+  name            String
+  email           String            @unique
+  password        String
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  emailVerified   Boolean           @default(false)
+  token           Token?
+  workspace       WorkSpace[]       @relation("workspaceOwner")
+  workspaceMember WorkSapceMember[] @relation()
+}
+
+model Token {
+  id       String   @id @default(uuid()) @db.Uuid
+  token    String   @unique
+  expireAt DateTime
+  userId   String   @unique @db.Uuid
+  user     User     @relation(fields: [userId], references: [id])
+}
+
+model WorkSpace {
+  id              String            @id @default(uuid()) @db.Uuid
+  name            String
+  description     String
+  color           String
+  ownerId         String            @unique @db.Uuid
+  user            User              @relation("workspaceOwner", fields: [ownerId], references: [id])
+  workspaceMember WorkSapceMember[]
+  role            Roles             @default(VIEWER)
+  joinedAt        DateTime
+  project         Project[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model WorkSapceMember {
+  id          String    @id @default(uuid()) @db.Uuid
+  userId      String    @db.Uuid
+  workspaceId String    @db.Uuid
+  workspace   WorkSpace @relation(fields: [workspaceId], references: [id])
+  user        User      @relation(fields: [userId], references: [id])
+
+  @@unique([userId, workspaceId])
+}
+
+model Project {
+  id          String    @id @default(uuid()) @db.Uuid
+  workspaceId String    @db.Uuid
+  workspace   WorkSpace @relation(fields: [workspaceId], references: [id])
+}
+
+model Task {
+  id          String     @id @default(uuid()) @db.Uuid
+  name        String
+  description String?
+  status      TaskStatus @default(PENDING)
+  createdAt   DateTime   @default(now())
+}
