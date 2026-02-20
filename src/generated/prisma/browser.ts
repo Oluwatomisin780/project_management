@@ -38,6 +38,11 @@ export type WorkSpace = Prisma.WorkSpaceModel
  */
 export type WorkSapceMember = Prisma.WorkSapceMemberModel
 /**
+ * Model ProjectMembers
+ * 
+ */
+export type ProjectMembers = Prisma.ProjectMembersModel
+/**
  * Model Project
  * 
  */
@@ -47,3 +52,33 @@ export type Project = Prisma.ProjectModel
  * 
  */
 export type Task = Prisma.TaskModel
+/**
+ * Model SubTask
+ * 
+ */
+export type SubTask = Prisma.SubTaskModel
+/**
+ * Model Comment
+ * 
+ */
+export type Comment = Prisma.CommentModel
+/**
+ * Model reactions
+ * 
+ */
+export type reactions = Prisma.reactionsModel
+/**
+ * Model CommentMentions
+ * 
+ */
+export type CommentMentions = Prisma.CommentMentionsModel
+/**
+ * Model Uploads
+ * 
+ */
+export type Uploads = Prisma.UploadsModel
+/**
+ * Model Attachment
+ * 
+ */
+export type Attachment = Prisma.AttachmentModel

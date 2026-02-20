@@ -9,15 +9,36 @@ datasource db {
 }
 
 enum TaskStatus {
-  PENDING
-  INPROGRESS
-  COMPLETED
+  TODO
+  IN_PROGRESS
+  REVIEW
+  DONE
+}
+
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
 }
 
 enum Roles {
   MEMBER
   OWNER
   VIEWER
+}
+
+enum PorjectRole {
+  CONTRIBUTOR
+  VIEWER
+  MANAGER
+}
+
+enum ProjectStatus {
+  PLANNING
+  IN_PROGRESS
+  ON_HOLD
+  COMPLETED
+  CANCELLED
 }
 
 model User {
@@ -30,7 +51,15 @@ model User {
   emailVerified   Boolean           @default(false)
   token           Token?
   workspace       WorkSpace[]       @relation("workspaceOwner")
-  workspaceMember WorkSapceMember[] @relation()
+  workspaceMember WorkSapceMember[]
+  projects        Project[]
+  projectMembers  ProjectMembers[]
+  task            Task[]            @relation("assignee")
+  wtacherTask     Task[]            @relation("watcher")
+  uploads         Uploads[]
+  comments        Comment[]
+  commentMentions CommentMentions[]
+  reactions       reactions?
 }
 
 model Token {
@@ -44,14 +73,14 @@ model Token {
 model WorkSpace {
   id              String            @id @default(uuid()) @db.Uuid
   name            String
-  description     String
+  description     String?
   color           String
-  ownerId         String            @unique @db.Uuid
+  ownerId         String            @db.Uuid
   user            User              @relation("workspaceOwner", fields: [ownerId], references: [id])
   workspaceMember WorkSapceMember[]
-  role            Roles             @default(VIEWER)
-  joinedAt        DateTime
-  project         Project[]
+
+  joinedAt DateTime
+  project  Project[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -63,20 +92,125 @@ model WorkSapceMember {
   workspaceId String    @db.Uuid
   workspace   WorkSpace @relation(fields: [workspaceId], references: [id])
   user        User      @relation(fields: [userId], references: [id])
+  role        Roles     @default(VIEWER)
 
   @@unique([userId, workspaceId])
 }
 
+model ProjectMembers {
+  id        String      @id @default(uuid()) @db.Uuid
+  userId    String      @db.Uuid
+  projectId String      @db.Uuid
+  user      User        @relation(fields: [userId], references: [id])
+  project   Project     @relation(fields: [projectId], references: [id])
+  role      PorjectRole
+}
+
 model Project {
-  id          String    @id @default(uuid()) @db.Uuid
-  workspaceId String    @db.Uuid
-  workspace   WorkSpace @relation(fields: [workspaceId], references: [id])
+  id             String           @id @default(uuid()) @db.Uuid
+  title          String
+  description    String?
+  status         ProjectStatus    @default(IN_PROGRESS)
+  task           Task[]
+  tags           String[]
+  startDate      DateTime
+  dueDate        DateTime
+  progress       Int              @default(0)
+  workspaceId    String           @unique @db.Uuid
+  workspace      WorkSpace        @relation(fields: [workspaceId], references: [id])
+  userId         String           @db.Uuid
+  createdBy      User             @relation(fields: [userId], references: [id])
+  isArchived     Boolean          @default(false)
+  projectMembers ProjectMembers[]
 }
 
 model Task {
-  id          String     @id @default(uuid()) @db.Uuid
-  name        String
-  description String?
-  status      TaskStatus @default(PENDING)
-  createdAt   DateTime   @default(now())
+  id           String       @id @default(uuid()) @db.Uuid
+  name         String
+  description  String?
+  taskPriority TaskPriority @default(LOW)
+  assigneeId   String       @unique @db.Uuid
+  assignee     User[]       @relation("assignee")
+
+  watcher        User[]      @relation("watcher")
+  status         TaskStatus  @default(TODO)
+  dueDate        DateTime
+  completeAt     DateTime
+  estimatedHours Int
+  actualHours    Int
+  subTask        SubTask[]
+  tags           String[]
+  createdAt      DateTime    @default(now())
+  ProjectId      String      @db.Uuid
+  project        Project     @relation(fields: [ProjectId], references: [id])
+  uploads        Uploads[]
+  comment        Comment[]
+  attachment     Attachment? @relation(fields: [attachmentId], references: [id])
+  attachmentId   String?     @db.Uuid
+}
+
+model SubTask {
+  id        String   @id @default(uuid()) @db.Uuid
+  title     String
+  completed Boolean  @default(false)
+  createdAt DateTime @default(now())
+  task      Task?    @relation(fields: [taskId], references: [id])
+  taskId    String?  @db.Uuid
+}
+
+model Comment {
+  id           String            @id @default(uuid()) @db.Uuid
+  title        String
+  isEdited     Boolean           @default(false)
+  taskId       String            @db.Uuid
+  task         Task              @relation(fields: [taskId], references: [id])
+  mentions     CommentMentions[]
+  userId       String            @db.Uuid
+  user         User              @relation(fields: [userId], references: [id])
+  createdAt    DateTime          @default(now())
+  uploads      Uploads[]
+  reactions    reactions[]
+  attachment   Attachment?       @relation(fields: [attachmentId], references: [id])
+  attachmentId String?           @db.Uuid
+}
+
+model reactions {
+  id        String  @id @default(uuid()) @db.Uuid
+  emoji     String
+  userId    String  @unique @db.Uuid
+  user      User    @relation(fields: [userId], references: [id])
+  comment   Comment @relation(fields: [commentId], references: [id])
+  commentId String  @db.Uuid
+}
+
+model CommentMentions {
+  id        String  @id @default(uuid()) @db.Uuid
+  offset    Int
+  length    Int
+  userId    String  @db.Uuid
+  user      User    @relation(fields: [userId], references: [id])
+  comment   Comment @relation(fields: [commentId], references: [id])
+  commentId String  @db.Uuid
+}
+
+model Uploads {
+  id         String       @id @default(uuid()) @db.Uuid
+  name       String
+  url        String
+  type       String
+  size       String
+  userId     String       @db.Uuid
+  user       User         @relation(fields: [userId], references: [id])
+  taskId     String?      @db.Uuid
+  task       Task?        @relation(fields: [taskId], references: [id])
+  commentId  String?      @db.Uuid
+  comment    Comment?     @relation(fields: [commentId], references: [id])
+  attachment Attachment[]
+}
+
+model Attachment {
+  id      String    @id @default(uuid()) @db.Uuid
+  uploads Uploads[]
+  task    Task[]
+  comment Comment[]
 }

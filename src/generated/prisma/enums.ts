@@ -10,12 +10,22 @@
 */
 
 export const TaskStatus = {
-  PENDING: 'PENDING',
-  INPROGRESS: 'INPROGRESS',
-  COMPLETED: 'COMPLETED'
+  TODO: 'TODO',
+  IN_PROGRESS: 'IN_PROGRESS',
+  REVIEW: 'REVIEW',
+  DONE: 'DONE'
 } as const
 
 export type TaskStatus = (typeof TaskStatus)[keyof typeof TaskStatus]
+
+
+export const TaskPriority = {
+  LOW: 'LOW',
+  MEDIUM: 'MEDIUM',
+  HIGH: 'HIGH'
+} as const
+
+export type TaskPriority = (typeof TaskPriority)[keyof typeof TaskPriority]
 
 
 export const Roles = {
@@ -25,3 +35,23 @@ export const Roles = {
 } as const
 
 export type Roles = (typeof Roles)[keyof typeof Roles]
+
+
+export const PorjectRole = {
+  CONTRIBUTOR: 'CONTRIBUTOR',
+  VIEWER: 'VIEWER',
+  MANAGER: 'MANAGER'
+} as const
+
+export type PorjectRole = (typeof PorjectRole)[keyof typeof PorjectRole]
+
+
+export const ProjectStatus = {
+  PLANNING: 'PLANNING',
+  IN_PROGRESS: 'IN_PROGRESS',
+  ON_HOLD: 'ON_HOLD',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type ProjectStatus = (typeof ProjectStatus)[keyof typeof ProjectStatus]

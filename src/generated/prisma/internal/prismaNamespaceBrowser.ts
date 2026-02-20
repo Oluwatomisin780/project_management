@@ -55,8 +55,15 @@ export const ModelName = {
   Token: 'Token',
   WorkSpace: 'WorkSpace',
   WorkSapceMember: 'WorkSapceMember',
+  ProjectMembers: 'ProjectMembers',
   Project: 'Project',
-  Task: 'Task'
+  Task: 'Task',
+  SubTask: 'SubTask',
+  Comment: 'Comment',
+  reactions: 'reactions',
+  CommentMentions: 'CommentMentions',
+  Uploads: 'Uploads',
+  Attachment: 'Attachment'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -104,7 +111,6 @@ export const WorkSpaceScalarFieldEnum = {
   description: 'description',
   color: 'color',
   ownerId: 'ownerId',
-  role: 'role',
   joinedAt: 'joinedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -116,15 +122,35 @@ export type WorkSpaceScalarFieldEnum = (typeof WorkSpaceScalarFieldEnum)[keyof t
 export const WorkSapceMemberScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  workspaceId: 'workspaceId'
+  workspaceId: 'workspaceId',
+  role: 'role'
 } as const
 
 export type WorkSapceMemberScalarFieldEnum = (typeof WorkSapceMemberScalarFieldEnum)[keyof typeof WorkSapceMemberScalarFieldEnum]
 
 
+export const ProjectMembersScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  projectId: 'projectId',
+  role: 'role'
+} as const
+
+export type ProjectMembersScalarFieldEnum = (typeof ProjectMembersScalarFieldEnum)[keyof typeof ProjectMembersScalarFieldEnum]
+
+
 export const ProjectScalarFieldEnum = {
   id: 'id',
-  workspaceId: 'workspaceId'
+  title: 'title',
+  description: 'description',
+  status: 'status',
+  tags: 'tags',
+  startDate: 'startDate',
+  dueDate: 'dueDate',
+  progress: 'progress',
+  workspaceId: 'workspaceId',
+  userId: 'userId',
+  isArchived: 'isArchived'
 } as const
 
 export type ProjectScalarFieldEnum = (typeof ProjectScalarFieldEnum)[keyof typeof ProjectScalarFieldEnum]
@@ -134,11 +160,86 @@ export const TaskScalarFieldEnum = {
   id: 'id',
   name: 'name',
   description: 'description',
+  taskPriority: 'taskPriority',
+  assigneeId: 'assigneeId',
   status: 'status',
-  createdAt: 'createdAt'
+  dueDate: 'dueDate',
+  completeAt: 'completeAt',
+  estimatedHours: 'estimatedHours',
+  actualHours: 'actualHours',
+  tags: 'tags',
+  createdAt: 'createdAt',
+  ProjectId: 'ProjectId',
+  attachmentId: 'attachmentId'
 } as const
 
 export type TaskScalarFieldEnum = (typeof TaskScalarFieldEnum)[keyof typeof TaskScalarFieldEnum]
+
+
+export const SubTaskScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  completed: 'completed',
+  createdAt: 'createdAt',
+  taskId: 'taskId'
+} as const
+
+export type SubTaskScalarFieldEnum = (typeof SubTaskScalarFieldEnum)[keyof typeof SubTaskScalarFieldEnum]
+
+
+export const CommentScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  isEdited: 'isEdited',
+  taskId: 'taskId',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  attachmentId: 'attachmentId'
+} as const
+
+export type CommentScalarFieldEnum = (typeof CommentScalarFieldEnum)[keyof typeof CommentScalarFieldEnum]
+
+
+export const ReactionsScalarFieldEnum = {
+  id: 'id',
+  emoji: 'emoji',
+  userId: 'userId',
+  commentId: 'commentId'
+} as const
+
+export type ReactionsScalarFieldEnum = (typeof ReactionsScalarFieldEnum)[keyof typeof ReactionsScalarFieldEnum]
+
+
+export const CommentMentionsScalarFieldEnum = {
+  id: 'id',
+  offset: 'offset',
+  length: 'length',
+  userId: 'userId',
+  commentId: 'commentId'
+} as const
+
+export type CommentMentionsScalarFieldEnum = (typeof CommentMentionsScalarFieldEnum)[keyof typeof CommentMentionsScalarFieldEnum]
+
+
+export const UploadsScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  url: 'url',
+  type: 'type',
+  size: 'size',
+  userId: 'userId',
+  taskId: 'taskId',
+  commentId: 'commentId'
+} as const
+
+export type UploadsScalarFieldEnum = (typeof UploadsScalarFieldEnum)[keyof typeof UploadsScalarFieldEnum]
+
+
+export const AttachmentScalarFieldEnum = {
+  id: 'id'
+} as const
+
+export type AttachmentScalarFieldEnum = (typeof AttachmentScalarFieldEnum)[keyof typeof AttachmentScalarFieldEnum]
 
 
 export const SortOrder = {

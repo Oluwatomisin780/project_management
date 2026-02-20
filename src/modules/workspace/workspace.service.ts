@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common';
-import { UpdateUserDto } from 'src/modules/user/user.type';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { Roles } from 'src/generated/prisma/enums';
 import {
   CreateWorkSpace,
   UpdateWorkSpace,
@@ -15,16 +15,53 @@ export class WorkspaceService {
       data: {
         ...dto,
         ownerId: userId,
+        joinedAt: new Date(),
+        workspaceMember: {
+          create: {
+            userId: userId,
+            role: Roles.OWNER,
+          },
+        },
       },
     });
   }
 
+  async getWorkspaces() {
+    const workspaces = this.prismaService.workSpace.findMany({
+      include: {
+        workspaceMember: true,
+      },
+    });
+    console.log(workspaces);
+    return workspaces;
+  }
   async getWorkSpace(id: string) {
-    return await this.prismaService.workSpace.findUnique({
+    const workspace = await this.prismaService.workSpace.findUnique({
       where: {
         id,
       },
+
+      include: {
+        workspaceMember: {
+          select: {
+            user: true,
+            role: true,
+          },
+        },
+        project: {
+          where: {
+            workspaceId: id,
+            isArchived: false,
+          },
+        },
+      },
     });
+
+    if (!workspace) throw new NotFoundException('workspace does not exist');
+
+    return {
+      workspace: workspace,
+    };
   }
 
   async updateWorkSpace(id: string, dto: UpdateWorkSpace) {

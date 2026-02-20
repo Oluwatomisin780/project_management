@@ -11,6 +11,7 @@ import { EventModule } from './services/event/event.module';
 import { MailModule } from './services/mail/mail.module';
 import { BullModule } from '@nestjs/bullmq';
 import { WorkspaceModule } from './modules/workspace/workspace.module';
+import { ProjectModule } from './modules/project/project.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { WorkspaceModule } from './modules/workspace/workspace.module';
     EventModule,
     MailModule,
     WorkspaceModule,
+    ProjectModule,
   ],
   controllers: [AppController],
   providers: [AppService],
