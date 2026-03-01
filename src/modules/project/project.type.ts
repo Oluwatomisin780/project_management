@@ -1,4 +1,4 @@
-import { IsDate, IsEnum, IsString, IsUUID } from 'class-validator';
+import { IsArray, IsDate, IsEnum, IsString, IsUUID } from 'class-validator';
 
 export enum TaskPriority {
   LOW = 'LOW',
@@ -16,4 +16,11 @@ export class CreateProjectDto {
   startDate: Date;
   @IsDate()
   dueDate: Date;
+  @IsArray()
+  tags?: string[];
+  @IsArray()
+  projectMembers?: {
+    userId: string;
+    role: string;
+  }[];
 }

@@ -129,15 +129,16 @@ model Task {
   name         String
   description  String?
   taskPriority TaskPriority @default(LOW)
-  assigneeId   String       @unique @db.Uuid
+  assigneeId   String       @db.Uuid
   assignee     User[]       @relation("assignee")
 
   watcher        User[]      @relation("watcher")
   status         TaskStatus  @default(TODO)
   dueDate        DateTime
-  completeAt     DateTime
-  estimatedHours Int
-  actualHours    Int
+  startDate      DateTime    @default(now())
+  completeAt     DateTime? // something here later
+  estimatedHours Int?
+  actualHours    Int?
   subTask        SubTask[]
   tags           String[]
   createdAt      DateTime    @default(now())

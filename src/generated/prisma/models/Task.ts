@@ -44,6 +44,7 @@ export type TaskMinAggregateOutputType = {
   assigneeId: string | null
   status: $Enums.TaskStatus | null
   dueDate: Date | null
+  startDate: Date | null
   completeAt: Date | null
   estimatedHours: number | null
   actualHours: number | null
@@ -60,6 +61,7 @@ export type TaskMaxAggregateOutputType = {
   assigneeId: string | null
   status: $Enums.TaskStatus | null
   dueDate: Date | null
+  startDate: Date | null
   completeAt: Date | null
   estimatedHours: number | null
   actualHours: number | null
@@ -76,6 +78,7 @@ export type TaskCountAggregateOutputType = {
   assigneeId: number
   status: number
   dueDate: number
+  startDate: number
   completeAt: number
   estimatedHours: number
   actualHours: number
@@ -105,6 +108,7 @@ export type TaskMinAggregateInputType = {
   assigneeId?: true
   status?: true
   dueDate?: true
+  startDate?: true
   completeAt?: true
   estimatedHours?: true
   actualHours?: true
@@ -121,6 +125,7 @@ export type TaskMaxAggregateInputType = {
   assigneeId?: true
   status?: true
   dueDate?: true
+  startDate?: true
   completeAt?: true
   estimatedHours?: true
   actualHours?: true
@@ -137,6 +142,7 @@ export type TaskCountAggregateInputType = {
   assigneeId?: true
   status?: true
   dueDate?: true
+  startDate?: true
   completeAt?: true
   estimatedHours?: true
   actualHours?: true
@@ -241,9 +247,10 @@ export type TaskGroupByOutputType = {
   assigneeId: string
   status: $Enums.TaskStatus
   dueDate: Date
-  completeAt: Date
-  estimatedHours: number
-  actualHours: number
+  startDate: Date
+  completeAt: Date | null
+  estimatedHours: number | null
+  actualHours: number | null
   tags: string[]
   createdAt: Date
   ProjectId: string
@@ -281,9 +288,10 @@ export type TaskWhereInput = {
   assigneeId?: Prisma.UuidFilter<"Task"> | string
   status?: Prisma.EnumTaskStatusFilter<"Task"> | $Enums.TaskStatus
   dueDate?: Prisma.DateTimeFilter<"Task"> | Date | string
-  completeAt?: Prisma.DateTimeFilter<"Task"> | Date | string
-  estimatedHours?: Prisma.IntFilter<"Task"> | number
-  actualHours?: Prisma.IntFilter<"Task"> | number
+  startDate?: Prisma.DateTimeFilter<"Task"> | Date | string
+  completeAt?: Prisma.DateTimeNullableFilter<"Task"> | Date | string | null
+  estimatedHours?: Prisma.IntNullableFilter<"Task"> | number | null
+  actualHours?: Prisma.IntNullableFilter<"Task"> | number | null
   tags?: Prisma.StringNullableListFilter<"Task">
   createdAt?: Prisma.DateTimeFilter<"Task"> | Date | string
   ProjectId?: Prisma.UuidFilter<"Task"> | string
@@ -305,9 +313,10 @@ export type TaskOrderByWithRelationInput = {
   assigneeId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   dueDate?: Prisma.SortOrder
-  completeAt?: Prisma.SortOrder
-  estimatedHours?: Prisma.SortOrder
-  actualHours?: Prisma.SortOrder
+  startDate?: Prisma.SortOrder
+  completeAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  estimatedHours?: Prisma.SortOrderInput | Prisma.SortOrder
+  actualHours?: Prisma.SortOrderInput | Prisma.SortOrder
   tags?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   ProjectId?: Prisma.SortOrder
@@ -332,9 +341,10 @@ export type TaskWhereUniqueInput = Prisma.AtLeast<{
   taskPriority?: Prisma.EnumTaskPriorityFilter<"Task"> | $Enums.TaskPriority
   status?: Prisma.EnumTaskStatusFilter<"Task"> | $Enums.TaskStatus
   dueDate?: Prisma.DateTimeFilter<"Task"> | Date | string
-  completeAt?: Prisma.DateTimeFilter<"Task"> | Date | string
-  estimatedHours?: Prisma.IntFilter<"Task"> | number
-  actualHours?: Prisma.IntFilter<"Task"> | number
+  startDate?: Prisma.DateTimeFilter<"Task"> | Date | string
+  completeAt?: Prisma.DateTimeNullableFilter<"Task"> | Date | string | null
+  estimatedHours?: Prisma.IntNullableFilter<"Task"> | number | null
+  actualHours?: Prisma.IntNullableFilter<"Task"> | number | null
   tags?: Prisma.StringNullableListFilter<"Task">
   createdAt?: Prisma.DateTimeFilter<"Task"> | Date | string
   ProjectId?: Prisma.UuidFilter<"Task"> | string
@@ -356,9 +366,10 @@ export type TaskOrderByWithAggregationInput = {
   assigneeId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   dueDate?: Prisma.SortOrder
-  completeAt?: Prisma.SortOrder
-  estimatedHours?: Prisma.SortOrder
-  actualHours?: Prisma.SortOrder
+  startDate?: Prisma.SortOrder
+  completeAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  estimatedHours?: Prisma.SortOrderInput | Prisma.SortOrder
+  actualHours?: Prisma.SortOrderInput | Prisma.SortOrder
   tags?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   ProjectId?: Prisma.SortOrder
@@ -381,9 +392,10 @@ export type TaskScalarWhereWithAggregatesInput = {
   assigneeId?: Prisma.UuidWithAggregatesFilter<"Task"> | string
   status?: Prisma.EnumTaskStatusWithAggregatesFilter<"Task"> | $Enums.TaskStatus
   dueDate?: Prisma.DateTimeWithAggregatesFilter<"Task"> | Date | string
-  completeAt?: Prisma.DateTimeWithAggregatesFilter<"Task"> | Date | string
-  estimatedHours?: Prisma.IntWithAggregatesFilter<"Task"> | number
-  actualHours?: Prisma.IntWithAggregatesFilter<"Task"> | number
+  startDate?: Prisma.DateTimeWithAggregatesFilter<"Task"> | Date | string
+  completeAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Task"> | Date | string | null
+  estimatedHours?: Prisma.IntNullableWithAggregatesFilter<"Task"> | number | null
+  actualHours?: Prisma.IntNullableWithAggregatesFilter<"Task"> | number | null
   tags?: Prisma.StringNullableListFilter<"Task">
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Task"> | Date | string
   ProjectId?: Prisma.UuidWithAggregatesFilter<"Task"> | string
@@ -398,9 +410,10 @@ export type TaskCreateInput = {
   assigneeId: string
   status?: $Enums.TaskStatus
   dueDate: Date | string
-  completeAt: Date | string
-  estimatedHours: number
-  actualHours: number
+  startDate?: Date | string
+  completeAt?: Date | string | null
+  estimatedHours?: number | null
+  actualHours?: number | null
   tags?: Prisma.TaskCreatetagsInput | string[]
   createdAt?: Date | string
   assignee?: Prisma.UserCreateNestedManyWithoutTaskInput
@@ -420,9 +433,10 @@ export type TaskUncheckedCreateInput = {
   assigneeId: string
   status?: $Enums.TaskStatus
   dueDate: Date | string
-  completeAt: Date | string
-  estimatedHours: number
-  actualHours: number
+  startDate?: Date | string
+  completeAt?: Date | string | null
+  estimatedHours?: number | null
+  actualHours?: number | null
   tags?: Prisma.TaskCreatetagsInput | string[]
   createdAt?: Date | string
   ProjectId: string
@@ -442,9 +456,10 @@ export type TaskUpdateInput = {
   assigneeId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
   dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completeAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  estimatedHours?: Prisma.IntFieldUpdateOperationsInput | number
-  actualHours?: Prisma.IntFieldUpdateOperationsInput | number
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  completeAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  estimatedHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  actualHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tags?: Prisma.TaskUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignee?: Prisma.UserUpdateManyWithoutTaskNestedInput
@@ -464,9 +479,10 @@ export type TaskUncheckedUpdateInput = {
   assigneeId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
   dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completeAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  estimatedHours?: Prisma.IntFieldUpdateOperationsInput | number
-  actualHours?: Prisma.IntFieldUpdateOperationsInput | number
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  completeAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  estimatedHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  actualHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tags?: Prisma.TaskUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ProjectId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -486,9 +502,10 @@ export type TaskCreateManyInput = {
   assigneeId: string
   status?: $Enums.TaskStatus
   dueDate: Date | string
-  completeAt: Date | string
-  estimatedHours: number
-  actualHours: number
+  startDate?: Date | string
+  completeAt?: Date | string | null
+  estimatedHours?: number | null
+  actualHours?: number | null
   tags?: Prisma.TaskCreatetagsInput | string[]
   createdAt?: Date | string
   ProjectId: string
@@ -503,9 +520,10 @@ export type TaskUpdateManyMutationInput = {
   assigneeId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
   dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completeAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  estimatedHours?: Prisma.IntFieldUpdateOperationsInput | number
-  actualHours?: Prisma.IntFieldUpdateOperationsInput | number
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  completeAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  estimatedHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  actualHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tags?: Prisma.TaskUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -518,9 +536,10 @@ export type TaskUncheckedUpdateManyInput = {
   assigneeId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
   dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completeAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  estimatedHours?: Prisma.IntFieldUpdateOperationsInput | number
-  actualHours?: Prisma.IntFieldUpdateOperationsInput | number
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  completeAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  estimatedHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  actualHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tags?: Prisma.TaskUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ProjectId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -545,6 +564,7 @@ export type TaskCountOrderByAggregateInput = {
   assigneeId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   dueDate?: Prisma.SortOrder
+  startDate?: Prisma.SortOrder
   completeAt?: Prisma.SortOrder
   estimatedHours?: Prisma.SortOrder
   actualHours?: Prisma.SortOrder
@@ -567,6 +587,7 @@ export type TaskMaxOrderByAggregateInput = {
   assigneeId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   dueDate?: Prisma.SortOrder
+  startDate?: Prisma.SortOrder
   completeAt?: Prisma.SortOrder
   estimatedHours?: Prisma.SortOrder
   actualHours?: Prisma.SortOrder
@@ -583,6 +604,7 @@ export type TaskMinOrderByAggregateInput = {
   assigneeId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   dueDate?: Prisma.SortOrder
+  startDate?: Prisma.SortOrder
   completeAt?: Prisma.SortOrder
   estimatedHours?: Prisma.SortOrder
   actualHours?: Prisma.SortOrder
@@ -736,6 +758,18 @@ export type EnumTaskStatusFieldUpdateOperationsInput = {
   set?: $Enums.TaskStatus
 }
 
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type TaskUpdatetagsInput = {
   set?: string[]
   push?: string | string[]
@@ -837,9 +871,10 @@ export type TaskCreateWithoutAssigneeInput = {
   assigneeId: string
   status?: $Enums.TaskStatus
   dueDate: Date | string
-  completeAt: Date | string
-  estimatedHours: number
-  actualHours: number
+  startDate?: Date | string
+  completeAt?: Date | string | null
+  estimatedHours?: number | null
+  actualHours?: number | null
   tags?: Prisma.TaskCreatetagsInput | string[]
   createdAt?: Date | string
   watcher?: Prisma.UserCreateNestedManyWithoutWtacherTaskInput
@@ -858,9 +893,10 @@ export type TaskUncheckedCreateWithoutAssigneeInput = {
   assigneeId: string
   status?: $Enums.TaskStatus
   dueDate: Date | string
-  completeAt: Date | string
-  estimatedHours: number
-  actualHours: number
+  startDate?: Date | string
+  completeAt?: Date | string | null
+  estimatedHours?: number | null
+  actualHours?: number | null
   tags?: Prisma.TaskCreatetagsInput | string[]
   createdAt?: Date | string
   ProjectId: string
@@ -884,9 +920,10 @@ export type TaskCreateWithoutWatcherInput = {
   assigneeId: string
   status?: $Enums.TaskStatus
   dueDate: Date | string
-  completeAt: Date | string
-  estimatedHours: number
-  actualHours: number
+  startDate?: Date | string
+  completeAt?: Date | string | null
+  estimatedHours?: number | null
+  actualHours?: number | null
   tags?: Prisma.TaskCreatetagsInput | string[]
   createdAt?: Date | string
   assignee?: Prisma.UserCreateNestedManyWithoutTaskInput
@@ -905,9 +942,10 @@ export type TaskUncheckedCreateWithoutWatcherInput = {
   assigneeId: string
   status?: $Enums.TaskStatus
   dueDate: Date | string
-  completeAt: Date | string
-  estimatedHours: number
-  actualHours: number
+  startDate?: Date | string
+  completeAt?: Date | string | null
+  estimatedHours?: number | null
+  actualHours?: number | null
   tags?: Prisma.TaskCreatetagsInput | string[]
   createdAt?: Date | string
   ProjectId: string
@@ -950,9 +988,10 @@ export type TaskScalarWhereInput = {
   assigneeId?: Prisma.UuidFilter<"Task"> | string
   status?: Prisma.EnumTaskStatusFilter<"Task"> | $Enums.TaskStatus
   dueDate?: Prisma.DateTimeFilter<"Task"> | Date | string
-  completeAt?: Prisma.DateTimeFilter<"Task"> | Date | string
-  estimatedHours?: Prisma.IntFilter<"Task"> | number
-  actualHours?: Prisma.IntFilter<"Task"> | number
+  startDate?: Prisma.DateTimeFilter<"Task"> | Date | string
+  completeAt?: Prisma.DateTimeNullableFilter<"Task"> | Date | string | null
+  estimatedHours?: Prisma.IntNullableFilter<"Task"> | number | null
+  actualHours?: Prisma.IntNullableFilter<"Task"> | number | null
   tags?: Prisma.StringNullableListFilter<"Task">
   createdAt?: Prisma.DateTimeFilter<"Task"> | Date | string
   ProjectId?: Prisma.UuidFilter<"Task"> | string
@@ -983,9 +1022,10 @@ export type TaskCreateWithoutProjectInput = {
   assigneeId: string
   status?: $Enums.TaskStatus
   dueDate: Date | string
-  completeAt: Date | string
-  estimatedHours: number
-  actualHours: number
+  startDate?: Date | string
+  completeAt?: Date | string | null
+  estimatedHours?: number | null
+  actualHours?: number | null
   tags?: Prisma.TaskCreatetagsInput | string[]
   createdAt?: Date | string
   assignee?: Prisma.UserCreateNestedManyWithoutTaskInput
@@ -1004,9 +1044,10 @@ export type TaskUncheckedCreateWithoutProjectInput = {
   assigneeId: string
   status?: $Enums.TaskStatus
   dueDate: Date | string
-  completeAt: Date | string
-  estimatedHours: number
-  actualHours: number
+  startDate?: Date | string
+  completeAt?: Date | string | null
+  estimatedHours?: number | null
+  actualHours?: number | null
   tags?: Prisma.TaskCreatetagsInput | string[]
   createdAt?: Date | string
   attachmentId?: string | null
@@ -1051,9 +1092,10 @@ export type TaskCreateWithoutSubTaskInput = {
   assigneeId: string
   status?: $Enums.TaskStatus
   dueDate: Date | string
-  completeAt: Date | string
-  estimatedHours: number
-  actualHours: number
+  startDate?: Date | string
+  completeAt?: Date | string | null
+  estimatedHours?: number | null
+  actualHours?: number | null
   tags?: Prisma.TaskCreatetagsInput | string[]
   createdAt?: Date | string
   assignee?: Prisma.UserCreateNestedManyWithoutTaskInput
@@ -1072,9 +1114,10 @@ export type TaskUncheckedCreateWithoutSubTaskInput = {
   assigneeId: string
   status?: $Enums.TaskStatus
   dueDate: Date | string
-  completeAt: Date | string
-  estimatedHours: number
-  actualHours: number
+  startDate?: Date | string
+  completeAt?: Date | string | null
+  estimatedHours?: number | null
+  actualHours?: number | null
   tags?: Prisma.TaskCreatetagsInput | string[]
   createdAt?: Date | string
   ProjectId: string
@@ -1109,9 +1152,10 @@ export type TaskUpdateWithoutSubTaskInput = {
   assigneeId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
   dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completeAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  estimatedHours?: Prisma.IntFieldUpdateOperationsInput | number
-  actualHours?: Prisma.IntFieldUpdateOperationsInput | number
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  completeAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  estimatedHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  actualHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tags?: Prisma.TaskUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignee?: Prisma.UserUpdateManyWithoutTaskNestedInput
@@ -1130,9 +1174,10 @@ export type TaskUncheckedUpdateWithoutSubTaskInput = {
   assigneeId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
   dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completeAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  estimatedHours?: Prisma.IntFieldUpdateOperationsInput | number
-  actualHours?: Prisma.IntFieldUpdateOperationsInput | number
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  completeAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  estimatedHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  actualHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tags?: Prisma.TaskUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ProjectId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1151,9 +1196,10 @@ export type TaskCreateWithoutCommentInput = {
   assigneeId: string
   status?: $Enums.TaskStatus
   dueDate: Date | string
-  completeAt: Date | string
-  estimatedHours: number
-  actualHours: number
+  startDate?: Date | string
+  completeAt?: Date | string | null
+  estimatedHours?: number | null
+  actualHours?: number | null
   tags?: Prisma.TaskCreatetagsInput | string[]
   createdAt?: Date | string
   assignee?: Prisma.UserCreateNestedManyWithoutTaskInput
@@ -1172,9 +1218,10 @@ export type TaskUncheckedCreateWithoutCommentInput = {
   assigneeId: string
   status?: $Enums.TaskStatus
   dueDate: Date | string
-  completeAt: Date | string
-  estimatedHours: number
-  actualHours: number
+  startDate?: Date | string
+  completeAt?: Date | string | null
+  estimatedHours?: number | null
+  actualHours?: number | null
   tags?: Prisma.TaskCreatetagsInput | string[]
   createdAt?: Date | string
   ProjectId: string
@@ -1209,9 +1256,10 @@ export type TaskUpdateWithoutCommentInput = {
   assigneeId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
   dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completeAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  estimatedHours?: Prisma.IntFieldUpdateOperationsInput | number
-  actualHours?: Prisma.IntFieldUpdateOperationsInput | number
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  completeAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  estimatedHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  actualHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tags?: Prisma.TaskUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignee?: Prisma.UserUpdateManyWithoutTaskNestedInput
@@ -1230,9 +1278,10 @@ export type TaskUncheckedUpdateWithoutCommentInput = {
   assigneeId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
   dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completeAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  estimatedHours?: Prisma.IntFieldUpdateOperationsInput | number
-  actualHours?: Prisma.IntFieldUpdateOperationsInput | number
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  completeAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  estimatedHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  actualHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tags?: Prisma.TaskUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ProjectId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1251,9 +1300,10 @@ export type TaskCreateWithoutUploadsInput = {
   assigneeId: string
   status?: $Enums.TaskStatus
   dueDate: Date | string
-  completeAt: Date | string
-  estimatedHours: number
-  actualHours: number
+  startDate?: Date | string
+  completeAt?: Date | string | null
+  estimatedHours?: number | null
+  actualHours?: number | null
   tags?: Prisma.TaskCreatetagsInput | string[]
   createdAt?: Date | string
   assignee?: Prisma.UserCreateNestedManyWithoutTaskInput
@@ -1272,9 +1322,10 @@ export type TaskUncheckedCreateWithoutUploadsInput = {
   assigneeId: string
   status?: $Enums.TaskStatus
   dueDate: Date | string
-  completeAt: Date | string
-  estimatedHours: number
-  actualHours: number
+  startDate?: Date | string
+  completeAt?: Date | string | null
+  estimatedHours?: number | null
+  actualHours?: number | null
   tags?: Prisma.TaskCreatetagsInput | string[]
   createdAt?: Date | string
   ProjectId: string
@@ -1309,9 +1360,10 @@ export type TaskUpdateWithoutUploadsInput = {
   assigneeId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
   dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completeAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  estimatedHours?: Prisma.IntFieldUpdateOperationsInput | number
-  actualHours?: Prisma.IntFieldUpdateOperationsInput | number
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  completeAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  estimatedHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  actualHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tags?: Prisma.TaskUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignee?: Prisma.UserUpdateManyWithoutTaskNestedInput
@@ -1330,9 +1382,10 @@ export type TaskUncheckedUpdateWithoutUploadsInput = {
   assigneeId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
   dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completeAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  estimatedHours?: Prisma.IntFieldUpdateOperationsInput | number
-  actualHours?: Prisma.IntFieldUpdateOperationsInput | number
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  completeAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  estimatedHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  actualHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tags?: Prisma.TaskUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ProjectId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1351,9 +1404,10 @@ export type TaskCreateWithoutAttachmentInput = {
   assigneeId: string
   status?: $Enums.TaskStatus
   dueDate: Date | string
-  completeAt: Date | string
-  estimatedHours: number
-  actualHours: number
+  startDate?: Date | string
+  completeAt?: Date | string | null
+  estimatedHours?: number | null
+  actualHours?: number | null
   tags?: Prisma.TaskCreatetagsInput | string[]
   createdAt?: Date | string
   assignee?: Prisma.UserCreateNestedManyWithoutTaskInput
@@ -1372,9 +1426,10 @@ export type TaskUncheckedCreateWithoutAttachmentInput = {
   assigneeId: string
   status?: $Enums.TaskStatus
   dueDate: Date | string
-  completeAt: Date | string
-  estimatedHours: number
-  actualHours: number
+  startDate?: Date | string
+  completeAt?: Date | string | null
+  estimatedHours?: number | null
+  actualHours?: number | null
   tags?: Prisma.TaskCreatetagsInput | string[]
   createdAt?: Date | string
   ProjectId: string
@@ -1419,9 +1474,10 @@ export type TaskUpdateWithoutAssigneeInput = {
   assigneeId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
   dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completeAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  estimatedHours?: Prisma.IntFieldUpdateOperationsInput | number
-  actualHours?: Prisma.IntFieldUpdateOperationsInput | number
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  completeAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  estimatedHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  actualHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tags?: Prisma.TaskUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   watcher?: Prisma.UserUpdateManyWithoutWtacherTaskNestedInput
@@ -1440,9 +1496,10 @@ export type TaskUncheckedUpdateWithoutAssigneeInput = {
   assigneeId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
   dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completeAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  estimatedHours?: Prisma.IntFieldUpdateOperationsInput | number
-  actualHours?: Prisma.IntFieldUpdateOperationsInput | number
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  completeAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  estimatedHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  actualHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tags?: Prisma.TaskUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ProjectId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1461,9 +1518,10 @@ export type TaskUncheckedUpdateManyWithoutAssigneeInput = {
   assigneeId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
   dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completeAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  estimatedHours?: Prisma.IntFieldUpdateOperationsInput | number
-  actualHours?: Prisma.IntFieldUpdateOperationsInput | number
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  completeAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  estimatedHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  actualHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tags?: Prisma.TaskUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ProjectId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1478,9 +1536,10 @@ export type TaskUpdateWithoutWatcherInput = {
   assigneeId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
   dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completeAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  estimatedHours?: Prisma.IntFieldUpdateOperationsInput | number
-  actualHours?: Prisma.IntFieldUpdateOperationsInput | number
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  completeAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  estimatedHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  actualHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tags?: Prisma.TaskUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignee?: Prisma.UserUpdateManyWithoutTaskNestedInput
@@ -1499,9 +1558,10 @@ export type TaskUncheckedUpdateWithoutWatcherInput = {
   assigneeId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
   dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completeAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  estimatedHours?: Prisma.IntFieldUpdateOperationsInput | number
-  actualHours?: Prisma.IntFieldUpdateOperationsInput | number
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  completeAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  estimatedHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  actualHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tags?: Prisma.TaskUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ProjectId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1520,9 +1580,10 @@ export type TaskUncheckedUpdateManyWithoutWatcherInput = {
   assigneeId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
   dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completeAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  estimatedHours?: Prisma.IntFieldUpdateOperationsInput | number
-  actualHours?: Prisma.IntFieldUpdateOperationsInput | number
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  completeAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  estimatedHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  actualHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tags?: Prisma.TaskUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ProjectId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1537,9 +1598,10 @@ export type TaskCreateManyProjectInput = {
   assigneeId: string
   status?: $Enums.TaskStatus
   dueDate: Date | string
-  completeAt: Date | string
-  estimatedHours: number
-  actualHours: number
+  startDate?: Date | string
+  completeAt?: Date | string | null
+  estimatedHours?: number | null
+  actualHours?: number | null
   tags?: Prisma.TaskCreatetagsInput | string[]
   createdAt?: Date | string
   attachmentId?: string | null
@@ -1553,9 +1615,10 @@ export type TaskUpdateWithoutProjectInput = {
   assigneeId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
   dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completeAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  estimatedHours?: Prisma.IntFieldUpdateOperationsInput | number
-  actualHours?: Prisma.IntFieldUpdateOperationsInput | number
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  completeAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  estimatedHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  actualHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tags?: Prisma.TaskUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignee?: Prisma.UserUpdateManyWithoutTaskNestedInput
@@ -1574,9 +1637,10 @@ export type TaskUncheckedUpdateWithoutProjectInput = {
   assigneeId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
   dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completeAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  estimatedHours?: Prisma.IntFieldUpdateOperationsInput | number
-  actualHours?: Prisma.IntFieldUpdateOperationsInput | number
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  completeAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  estimatedHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  actualHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tags?: Prisma.TaskUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attachmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1595,9 +1659,10 @@ export type TaskUncheckedUpdateManyWithoutProjectInput = {
   assigneeId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
   dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completeAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  estimatedHours?: Prisma.IntFieldUpdateOperationsInput | number
-  actualHours?: Prisma.IntFieldUpdateOperationsInput | number
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  completeAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  estimatedHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  actualHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tags?: Prisma.TaskUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   attachmentId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1611,9 +1676,10 @@ export type TaskCreateManyAttachmentInput = {
   assigneeId: string
   status?: $Enums.TaskStatus
   dueDate: Date | string
-  completeAt: Date | string
-  estimatedHours: number
-  actualHours: number
+  startDate?: Date | string
+  completeAt?: Date | string | null
+  estimatedHours?: number | null
+  actualHours?: number | null
   tags?: Prisma.TaskCreatetagsInput | string[]
   createdAt?: Date | string
   ProjectId: string
@@ -1627,9 +1693,10 @@ export type TaskUpdateWithoutAttachmentInput = {
   assigneeId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
   dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completeAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  estimatedHours?: Prisma.IntFieldUpdateOperationsInput | number
-  actualHours?: Prisma.IntFieldUpdateOperationsInput | number
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  completeAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  estimatedHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  actualHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tags?: Prisma.TaskUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignee?: Prisma.UserUpdateManyWithoutTaskNestedInput
@@ -1648,9 +1715,10 @@ export type TaskUncheckedUpdateWithoutAttachmentInput = {
   assigneeId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
   dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completeAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  estimatedHours?: Prisma.IntFieldUpdateOperationsInput | number
-  actualHours?: Prisma.IntFieldUpdateOperationsInput | number
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  completeAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  estimatedHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  actualHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tags?: Prisma.TaskUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ProjectId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1669,9 +1737,10 @@ export type TaskUncheckedUpdateManyWithoutAttachmentInput = {
   assigneeId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumTaskStatusFieldUpdateOperationsInput | $Enums.TaskStatus
   dueDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  completeAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  estimatedHours?: Prisma.IntFieldUpdateOperationsInput | number
-  actualHours?: Prisma.IntFieldUpdateOperationsInput | number
+  startDate?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  completeAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  estimatedHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  actualHours?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   tags?: Prisma.TaskUpdatetagsInput | string[]
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ProjectId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1752,6 +1821,7 @@ export type TaskSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   assigneeId?: boolean
   status?: boolean
   dueDate?: boolean
+  startDate?: boolean
   completeAt?: boolean
   estimatedHours?: boolean
   actualHours?: boolean
@@ -1777,6 +1847,7 @@ export type TaskSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   assigneeId?: boolean
   status?: boolean
   dueDate?: boolean
+  startDate?: boolean
   completeAt?: boolean
   estimatedHours?: boolean
   actualHours?: boolean
@@ -1796,6 +1867,7 @@ export type TaskSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   assigneeId?: boolean
   status?: boolean
   dueDate?: boolean
+  startDate?: boolean
   completeAt?: boolean
   estimatedHours?: boolean
   actualHours?: boolean
@@ -1815,6 +1887,7 @@ export type TaskSelectScalar = {
   assigneeId?: boolean
   status?: boolean
   dueDate?: boolean
+  startDate?: boolean
   completeAt?: boolean
   estimatedHours?: boolean
   actualHours?: boolean
@@ -1824,7 +1897,7 @@ export type TaskSelectScalar = {
   attachmentId?: boolean
 }
 
-export type TaskOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "taskPriority" | "assigneeId" | "status" | "dueDate" | "completeAt" | "estimatedHours" | "actualHours" | "tags" | "createdAt" | "ProjectId" | "attachmentId", ExtArgs["result"]["task"]>
+export type TaskOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "taskPriority" | "assigneeId" | "status" | "dueDate" | "startDate" | "completeAt" | "estimatedHours" | "actualHours" | "tags" | "createdAt" | "ProjectId" | "attachmentId", ExtArgs["result"]["task"]>
 export type TaskInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   assignee?: boolean | Prisma.Task$assigneeArgs<ExtArgs>
   watcher?: boolean | Prisma.Task$watcherArgs<ExtArgs>
@@ -1863,9 +1936,10 @@ export type $TaskPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     assigneeId: string
     status: $Enums.TaskStatus
     dueDate: Date
-    completeAt: Date
-    estimatedHours: number
-    actualHours: number
+    startDate: Date
+    completeAt: Date | null
+    estimatedHours: number | null
+    actualHours: number | null
     tags: string[]
     createdAt: Date
     ProjectId: string
@@ -2307,6 +2381,7 @@ export interface TaskFieldRefs {
   readonly assigneeId: Prisma.FieldRef<"Task", 'String'>
   readonly status: Prisma.FieldRef<"Task", 'TaskStatus'>
   readonly dueDate: Prisma.FieldRef<"Task", 'DateTime'>
+  readonly startDate: Prisma.FieldRef<"Task", 'DateTime'>
   readonly completeAt: Prisma.FieldRef<"Task", 'DateTime'>
   readonly estimatedHours: Prisma.FieldRef<"Task", 'Int'>
   readonly actualHours: Prisma.FieldRef<"Task", 'Int'>

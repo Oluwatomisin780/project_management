@@ -24,7 +24,7 @@ export class WorkspaceController {
   @UseGuards(JwtAuthGuard)
   @Post('/create-workspace')
   async createWorkspace(@Body() dto: CreateWorkSpace, @User() user: any) {
-    console.log(user);
+    // console.log(user);
     return await this.workService.createWorkSpace(dto, user.id);
   }
 
