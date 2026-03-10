@@ -332,13 +332,13 @@ export type TaskOrderByWithRelationInput = {
 
 export type TaskWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  assigneeId?: string
   AND?: Prisma.TaskWhereInput | Prisma.TaskWhereInput[]
   OR?: Prisma.TaskWhereInput[]
   NOT?: Prisma.TaskWhereInput | Prisma.TaskWhereInput[]
   name?: Prisma.StringFilter<"Task"> | string
   description?: Prisma.StringNullableFilter<"Task"> | string | null
   taskPriority?: Prisma.EnumTaskPriorityFilter<"Task"> | $Enums.TaskPriority
+  assigneeId?: Prisma.UuidFilter<"Task"> | string
   status?: Prisma.EnumTaskStatusFilter<"Task"> | $Enums.TaskStatus
   dueDate?: Prisma.DateTimeFilter<"Task"> | Date | string
   startDate?: Prisma.DateTimeFilter<"Task"> | Date | string
@@ -356,7 +356,7 @@ export type TaskWhereUniqueInput = Prisma.AtLeast<{
   uploads?: Prisma.UploadsListRelationFilter
   comment?: Prisma.CommentListRelationFilter
   attachment?: Prisma.XOR<Prisma.AttachmentNullableScalarRelationFilter, Prisma.AttachmentWhereInput> | null
-}, "id" | "assigneeId">
+}, "id">
 
 export type TaskOrderByWithAggregationInput = {
   id?: Prisma.SortOrder

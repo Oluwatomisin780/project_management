@@ -41,6 +41,32 @@ enum ProjectStatus {
   CANCELLED
 }
 
+enum ActionEnum {
+  CREATED_TASK
+  UPDATED_TASK
+  CREATED_SUBTASK
+  UPDATED_SUBTASK
+  COMPLETED_TASK
+  CREATED_PROJECT
+  UPDATED_PROJECT
+  CREATED_WORKSPACE
+  UPDATED_WORSPACE
+  ADDED_COMMENT
+  ADDED_MEMBER
+  REMOVE_MEMBER
+  JOINED_WORKSPACE
+  TRANSFERRED_WORKSPACE_OWNERSHIP
+  ADDED_ATTACHMENT
+}
+
+enum ResourceTypeStatus {
+  TASK
+  PROJECT
+  WORKSPACE
+  COMMENT
+  USER
+}
+
 model User {
   id              String            @id @default(uuid()) @db.Uuid
   name            String
@@ -60,6 +86,7 @@ model User {
   comments        Comment[]
   commentMentions CommentMentions[]
   reactions       reactions?
+  activities      Activities[]
 }
 
 model Token {
@@ -214,4 +241,22 @@ model Attachment {
   uploads Uploads[]
   task    Task[]
   comment Comment[]
+}
+
+model Activities {
+  id           String       @id @default(uuid()) @db.Uuid
+  userId       String       @db.Uuid
+  user         User         @relation(fields: [userId], references: [id])
+  details      Json         @db.Json
+  resourceId   String       @unique @db.Uuid
+  resourceType ResourceType @relation(fields: [resourceId], references: [id])
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+}
+
+model ResourceType {
+  id             String             @id @default(uuid()) @db.Uuid
+  type           String
+  resourceStatus ResourceTypeStatus
+  activities     Activities?
 }

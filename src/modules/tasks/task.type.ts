@@ -1,5 +1,7 @@
+import { PartialType } from '@nestjs/mapped-types';
 import { Type } from 'class-transformer';
 import { IsDate, IsEnum, IsString } from 'class-validator';
+import { extname } from 'node:path';
 
 export enum TaskPriority {
   LOW = 'LOW',
@@ -31,3 +33,8 @@ export class CreateTaskDto {
   @IsEnum(TaskStatus)
   status: TaskStatus;
 }
+
+
+ export class UpdateTask extends PartialType(CreateTaskDto){ 
+   
+ }

@@ -106,5 +106,9 @@ export class ProjectService {
     return project;
   }
 
-  deleteProject(projectId: string) {}
+
+
+  deleteProject(projectId: string) {
+
+      }
 }
